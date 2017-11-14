@@ -1,0 +1,1 @@
+{"code":"0","maintenance":0,"serverTime":"2017\/10\/23 14:40:11","downloadFlg":"0","description":"説明だよ","result":{"userID":"400000352","password":"あいうえお","accessToken":""}}
