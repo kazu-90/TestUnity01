@@ -11,11 +11,13 @@ public class BulletMove : MonoBehaviour {
 	Vector3 m_Acceleration;	// 加速度
 	Transform m_Transfrom;
 
+	float m_LifeTime = 1.6f;
+
 	private void Awake() {
 		m_Transfrom = transform;
 		m_Position = m_Transfrom.position;
 
-		m_Velocity = new Vector3(5.0f, 0.0f, 0.0f);
+		m_Velocity = new Vector3(Random.Range(-20.0f, 20.0f), -5.0f, 0.0f);
 	}
 
 
@@ -38,6 +40,13 @@ public class BulletMove : MonoBehaviour {
 			m_Position += m_Velocity * Time.deltaTime;
 			m_Transfrom.position = m_Position;
 		}
+
+
+		// 時間が来たら削除
+		if(m_LifeTime <= 0.0f){
+			Destroy(gameObject);
+		}
+		m_LifeTime -= Time.deltaTime;
 	}
 
 
@@ -49,14 +58,14 @@ public class BulletMove : MonoBehaviour {
 	// a = (2 * (d - v0 * t)) / (t*t)
 
 	//決められた時間に着弾
-	private float m_PeriodTime = 1.0f;
+	private float m_PeriodTime = 1.5f;
 	bool HitAtTheFixedTime(){
 		if(m_TargetTransform == null){
 			return false;
 		}
 
 		var diff = m_TargetTransform.position - m_Position;
-		Debug.Log(diff);
+//		Debug.Log(diff);
 		m_Acceleration = (2.0f * (diff - m_Velocity * m_PeriodTime)) / (m_PeriodTime * m_PeriodTime);
 
 		m_PeriodTime -= Time.deltaTime;
